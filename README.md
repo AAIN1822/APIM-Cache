@@ -1,6 +1,8 @@
+**Need to add APIM_URL and DEV_SUB_KEY**
+
 TOKEN=$(az account get-access-token --query accessToken --output tsv)
 SUB_ID=$(az account show --query id --output tsv)
-APIM_URL="https://uniview-apim-new.azure-api.net/rag/api/query"
+APIM_URL="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 DEV_SUB_KEY="xxxxxxxxxxxxxxxxxxxxxxxx"
 
 echo "================================================"
