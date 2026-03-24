@@ -1,0 +1,14 @@
+[
+  {"name": "AZURE_OPENAI_ENDPOINT", "value": "https://aifoundry-unified-dev-eu2.openai.azure.com/"},
+  {"name": "AZURE_OPENAI_KEY", "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+  {"name": "AZURE_OPENAI_CHAT_DEPLOYMENT", "value": "gpt-4o"},
+  {"name": "AZURE_OPENAI_EMBED_DEPLOYMENT", "value": "text-embedding-ada-002"},
+  {"name": "CHROMA_DB_DIR", "value": "/tmp/chroma_db"},
+  {"name": "CHROMA_COLLECTION_NAME", "value": "documents"},
+  {"name": "STATIC_DOCUMENT_ID", "value": "00000000-0000-4000-8000-000000000001"},
+  {"name": "STATIC_PDF_PATH", "value": "docs/Essay on Narendra Modi.pdf"},
+  {"name": "REDIS_URL", "value": "redis://redis-service:6379/0"},
+  {"name": "CACHE_TTL_SECONDS", "value": "120"},
+  {"name": "CACHE_SIMILARITY_THRESHOLD", "value": "0.90"},
+  {"name": "BEHIND_APIM", "value": "false"}
+]
