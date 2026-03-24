@@ -1,0 +1,46 @@
+NEW LAPTOP / AFTER UNZIP: Double-click setup_and_run.cmd once. See SETUP_AND_RUN_README.txt.
+
+Before double-clicking start_all.cmd (or running start_all.ps1)
+=============================================================
+
+1. Docker Desktop
+   - Must be RUNNING (Redis runs in Docker).
+   - If not installed: install from https://www.docker.com/products/docker-desktop
+
+2. Python environment (D:\envv)
+   - The script uses:  D:\envv\Scripts\python.exe
+   - If you use a different venv, edit start_all.ps1 and set $Python to your path.
+   - Install deps once:  pip install -r requirements.txt  (from that venv)
+
+3. .env file
+   - In this folder (azure-rag-app) have a .env with:
+     AZURE_OPENAI_ENDPOINT=...
+     AZURE_OPENAI_KEY=...
+     AZURE_OPENAI_CHAT_DEPLOYMENT=...
+     AZURE_OPENAI_EMBED_DEPLOYMENT=...
+   - Optional: REDIS_URL, CACHE_TTL_SECONDS, STATIC_PDF_PATH
+
+4. Static PDF
+   - Place "Essay on Narendra Modi.pdf" in the docs\ folder.
+   - Or set STATIC_PDF_PATH in .env to your PDF path.
+
+That's it. Then double-click start_all.cmd (or run .\start_all.ps1).
+The script will check Docker and Python and warn if something is missing.
+
+Redis cache: If the API shows "Redis unavailable, caching disabled", the redis-rag
+container may not have port 6379 mapped. Run start_all again—the script will
+remove and recreate the container with -p 6379:6379. Or manually:
+  docker rm -f redis-rag
+  docker run -d --name redis-rag -p 6379:6379 -v redis-rag-data:/data redis:7-alpine
+
+WinError 10013 (port in use): If the API or Streamlit window shows "access a socket in a way
+forbidden by its access permissions", ports 8000 or 8501 are already in use (e.g. from a
+previous run). Fix:
+  1. Close any "RAG API" or "RAG Streamlit" command windows that are still open.
+  2. In a new CMD (Run as administrator if needed), free the ports:
+       netstat -ano | findstr :8000
+       netstat -ano | findstr :8501
+     Note the PID (last column), then: taskkill /PID <pid> /F
+  3. Run runproject.cmd again.
+  Or use different ports: set API_PORT=8001 and STREAMLIT_PORT=8502 before running
+  runproject.cmd (see runproject.cmd for supported env vars).

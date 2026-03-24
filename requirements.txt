@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+streamlit
+python-multipart
+python-dotenv
+
+openai
+chromadb
+
+langchain-text-splitters
+pypdf
+numpy
+requests
+redis

@@ -1,0 +1,106 @@
+
+Step:--0
+Install Python deps:  pip install -r requirements.txt
+PDF is STATIC: docs/Essay on Narendra Modi.pdf (indexed when API starts; no upload).
+
+Step:--0b  Start everything with ONE command:
+  cd D:\agent\azure-rag-app_final\azure-rag-app
+  .\start_all.ps1
+  (Or double-click start_all.cmd)
+  This starts: Redis -> API (uvicorn) -> Streamlit in separate windows.
+  Manual start: uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+               streamlit run ui/streamlit_app.py
+
+Step:--1
+install docker desktop:-
+
+then:---->>>>
+PS C:\Users\affine> docker run -d --name redis-rag -p 6379:6379 redis:7-alpine
+Unable to find image 'redis:7-alpine' locally
+7-alpine: Pulling from library/redis
+1c2c8d1ee428: Pull complete
+9fe3744a2eac: Pull complete
+09a5a0c32a23: Pull complete
+7ad54b3c4cef: Pull complete
+4f4fb700ef54: Pull complete
+bd53938b1271: Pull complete
+bc1da058f299: Pull complete
+2a97533d89ca: Pull complete
+9bbcfa5d5580: Download complete
+06cd2b88db40: Download complete
+Digest: sha256:8b81dd37ff027bec4e516d41acfbe9fe2460070dc6d4a4570a2ac5b9d59df065
+Status: Downloaded newer image for redis:7-alpine
+6d50eed7a9f4bc3ffb4e10a73dca5963ac3b29bb350600aa6c83ee027a94cb3e
+# ------------
+PS C:\Users\affine> docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+6d50eed7a9f4   redis:7-alpine   "docker-entrypoint.s…"   22 seconds ago   Up 21 seconds   0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp   redis-rag
+PS C:\Users\affine> redis-cli PING
+redis-cli : The term 'redis-cli' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ redis-cli PING
++ ~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (redis-cli:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+# --------------------------
+
+
+(envv) PS D:\agent\azure-rag-app_final\azure-rag-app> D:\envv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+INFO:     Will watch for changes in these directories: ['D:\\agent\\azure-rag-app_final\\azure-rag-app']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [37200] using StatReload
+✅ Config loaded
+Azure OpenAI Endpoint: https://oai-intertek-esus2-dev.openai.azure.com/
+Azure OpenAI Chat Deployment: gpt-4o
+Azure OpenAI Embed Deployment: text-embedding-ada-002
+Cosmos Connection String: SET
+Cosmos DB Name: ragdb
+Cosmos Container Name: documents2
+Blob Connection String: SET
+Blob Container: pdfs
+Redis URL: redis://localhost:6379/0
+Cache TTL (seconds): 600
+🚀 FastAPI started
+Python executable: D:\envv\Scripts\python.exe
+Redis cache: OK (connected at startup)
+INFO:     Started server process [36528]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+
+
+(envv) PS D:\agent\azure-rag-app_final\azure-rag-app> uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+INFO:     Will watch for changes in these directories: ['D:\\agent\\azure-rag-app_final\\azure-rag-app']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [31640] using StatReload
+✅ Config loaded
+Azure OpenAI Endpoint: https://oai-intertek-esus2-dev.openai.azure.com/
+Azure OpenAI Chat Deployment: gpt-4o
+Azure OpenAI Embed Deployment: text-embedding-ada-002
+Cosmos Connection String: SET
+Cosmos DB Name: ragdb
+Cosmos Container Name: documents2
+Blob Connection String: SET
+Blob Container: pdfs
+Redis URL: redis://localhost:6379/0
+Cache TTL (seconds): 600
+🚀 FastAPI started
+Python executable: C:\Users\affine\Desktop\new_intertek\InterTek-AI-Repo\Backend\envv\Scripts\python.exe
+Redis unavailable, caching disabled: No module named 'redis'
+Redis cache: disabled (connection failed or Redis not running)
+INFO:     Started server process [11964]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+
+
+#-----------------------------------------------------
+
+(envv) D:\agent\azure-rag-app_final\azure-rag-app\ui>streamlit run streamlit_app.py
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.64:8501
+
+  Stopping...
